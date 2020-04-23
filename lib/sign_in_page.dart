@@ -1,6 +1,24 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterlovers/common_widget/social_log_in_button.dart';
+import 'package:flutterlovers/locator.dart';
+import 'package:flutterlovers/model/user_model.dart';
+import 'package:flutterlovers/services/auth_base.dart';
+import 'package:flutterlovers/services/firebase_auth_service.dart';
 
 class SignInPage extends StatelessWidget {
+
+  final Function(User) onSingIn;
+  AuthBase authService = locator<FirebaseAuthService>();
+
+  SignInPage({Key key, @required this.onSingIn}) : super(key: key);
+
+  Future<void> _misafirGirisi() async {
+    User _user =await authService.signInAnonymously();
+    onSingIn(_user);
+    print("oturum açan user id"+_user.userID.toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,27 +42,37 @@ class SignInPage extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            RaisedButton(
+            SocailLoginButton(
+              butonText: "Gmail ile Giriş Yap",
+              butonColor: Colors.white,
+              textColor: Colors.black87,
+              butonIcon: Image.asset("images/google-logo.png"),
               onPressed: () {},
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-              child: Text(
-                "Google ile Oturum Aç",
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.red,
             ),
-            RaisedButton(
+            SocailLoginButton(
+              butonText: "Facebook ile Giriş Yap",
+              butonIcon: Image.asset("images/facebook-logo.png"),
               onPressed: () {},
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+              butonColor: Color(0xFF334D92),
+            ),
+            SocailLoginButton(
+              onPressed: () {},
+              butonIcon: Icon(
+                Icons.email,
+                size: 32,
+                color: Colors.white,
               ),
-              child: Text(
-                "Google ile Oturum Aç",
-                style: TextStyle(color: Colors.white),
+              butonText: "Email ve Şifre ile Giriş Yap",
+            ),
+            SocailLoginButton(
+              onPressed: _misafirGirisi,
+              butonColor: Colors.teal,
+              butonIcon: Icon(
+                Icons.supervised_user_circle,
+                color: Colors.white,
+                size: 32,
               ),
-              color: Colors.red,
+              butonText: "Misafir Girişi",
             ),
           ],
         ),
