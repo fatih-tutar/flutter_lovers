@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutterlovers/landing_page.dart';
+import 'package:flutterlovers/app/landing_page.dart';
 import 'package:flutterlovers/locator.dart';
-import 'package:flutterlovers/services/firebase_auth_service.dart';
+import 'package:flutterlovers/viewmodel/user_model.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   setupLocator();
@@ -11,13 +12,17 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Flutter Lovers",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
+    return ChangeNotifierProvider(
+      builder: (context) => UserModel(),
+      create: (context) => UserModel(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Lovers',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+        ),
+        home: LandingPage(),
       ),
-      home: LandingPage(),
     );
   }
 }
