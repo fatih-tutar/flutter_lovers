@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   TabItem _currentTab = TabItem.Konusmalarim;
 
   Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
