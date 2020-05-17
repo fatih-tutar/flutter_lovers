@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
   TabItem _currentTab = TabItem.Konusmalarim;
 
   Map<TabItem, GlobalKey<NavigatorState>> navigatorKeys = {
@@ -29,11 +30,11 @@ class _HomePageState extends State<HomePage> {
 
   Map<TabItem, Widget> tumSayfalar() {
     return {
-      TabItem.Konusmalarim: KonusmalarimPage(),
       TabItem.Kullanicilar: ChangeNotifierProvider(
         builder: (context) => AllUserViewModel(),
         child: KullanicilarPage(),
       ),
+      TabItem.Konusmalarim: KonusmalarimPage(),
       TabItem.Profil: ProfilPage(),
     };
   }

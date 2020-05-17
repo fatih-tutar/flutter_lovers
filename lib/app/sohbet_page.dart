@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterlovers/admob_islemleri.dart';
 import 'package:flutterlovers/model/mesaj.dart';
 import 'package:flutterlovers/model/user.dart';
 import 'package:flutterlovers/viewmodel/chat_view_model.dart';
@@ -16,12 +18,29 @@ class _SohbetPageState extends State<SohbetPage> {
   var _mesajController = TextEditingController();
   ScrollController _scrollController = new ScrollController();
   bool _isLoading = false;
+  InterstitialAd myInterstitialAd;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _scrollController.addListener(_scrollListener);
+    if(AdmobIslemleri.kacKereGosterildi%5 == 0){
+      myInterstitialAd = AdmobIslemleri.buildInterstitialAd();
+      myInterstitialAd..load()..show();
+      AdmobIslemleri.kacKereGosterildi++;
+    }else{
+      AdmobIslemleri.kacKereGosterildi++;
+    }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    if(myInterstitialAd != null){
+      myInterstitialAd.dispose();
+    }
+    super.dispose();
   }
 
   @override

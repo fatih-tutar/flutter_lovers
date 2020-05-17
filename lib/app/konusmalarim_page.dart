@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterlovers/admob_islemleri.dart';
 import 'package:flutterlovers/app/sohbet_page.dart';
 import 'package:flutterlovers/model/konusma.dart';
 import 'package:flutterlovers/model/user.dart';
 import 'package:flutterlovers/viewmodel/chat_view_model.dart';
 import 'package:flutterlovers/viewmodel/user_model.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 class KonusmalarimPage extends StatefulWidget {
   @override
@@ -13,6 +15,36 @@ class KonusmalarimPage extends StatefulWidget {
 }
 
 class _KonusmalarimPageState extends State<KonusmalarimPage> {
+
+  @override
+  void initState() {
+    super.initState();
+    RewardedVideoAd.instance.load(adUnitId:AdmobIslemleri.odulluReklamTest, targetingInfo: AdmobIslemleri.targetingInfo);
+
+    RewardedVideoAd.instance.listener =
+        (RewardedVideoAdEvent event, {String rewardType, int rewardAmount}) {
+      if (event == RewardedVideoAdEvent.rewarded) {
+        print("********** Ödüllü Reklam ************** ÖDÜL VER");
+        odulluReklamLoad();
+      }else if(event == RewardedVideoAdEvent.loaded){
+        print(" ************* ÖDÜLLÜ REKLAM ********* REKLAM YÜKLENDİ VE GÖSTERİLECEK ");
+        RewardedVideoAd.instance.show();
+      }else if(event == RewardedVideoAdEvent.closed){
+        print(" ************* ÖDÜLLÜ REKLAM ********* REKLAM KAPATILDI ");
+      }else if(event == RewardedVideoAdEvent.failedToLoad){
+        print("************* ÖDÜLLÜ REKLAM ***** REKLAM BULUNAMADI");
+        odulluReklamLoad();
+      }else if(event == RewardedVideoAdEvent.completed){
+        print(" ************* ÖDÜLLÜ REKLAM ***** COMPLETED");
+      }
+    };
+
+  }
+
+  void odulluReklamLoad(){
+    RewardedVideoAd.instance.load(adUnitId:AdmobIslemleri.odulluReklamTest, targetingInfo: AdmobIslemleri.targetingInfo);
+  }
+
   @override
   Widget build(BuildContext context) {
     UserModel _userModel = Provider.of<UserModel>(context);
