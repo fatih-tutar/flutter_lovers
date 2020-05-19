@@ -11,11 +11,11 @@ class Mesaj{
 
   Map<String, dynamic> toMap(){
     return {
-      'kimden'  :  kimden,
-      'kime'    :  kime,
-      'bendenMi':  bendenMi,
-      'mesaj'   :  mesaj,
-      'date'    :  date ?? FieldValue.serverTimestamp(),
+      'kimden'        :  kimden,
+      'kime'          :  kime,
+      'bendenMi'      :  bendenMi,
+      'mesaj'         :  mesaj,
+      'date'          :  date ?? FieldValue.serverTimestamp(),
     };
   }
 

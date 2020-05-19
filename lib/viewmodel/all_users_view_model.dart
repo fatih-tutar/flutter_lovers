@@ -52,7 +52,7 @@ class AllUserViewModel with ChangeNotifier{
       _hasMore = false;
     }
 
-    yeniListe.forEach((usr) => print("Getirilen user name : "+ usr.userName));
+    //yeniListe.forEach((usr) => print("Getirilen user name : "+ usr.userName));
 
     _tumKullanicilar.addAll(yeniListe);
     state = AllUserViewState.Loaded;

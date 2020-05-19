@@ -19,7 +19,7 @@ class FirestoreDbService implements DBBase {
 
     Map _okunanUserBilgileriMap = _okunanUser.data;
     User _okunanUserBilgileriNesne = User.fromMap(_okunanUserBilgileriMap);
-    print("Okunan User Nesnesi : " + _okunanUserBilgileriNesne.toString());
+    //print("Okunan User Nesnesi : " + _okunanUserBilgileriNesne.toString());
 
     return true;
   }
@@ -31,7 +31,7 @@ class FirestoreDbService implements DBBase {
     Map<String, dynamic> _okunanUserBilgileriMap = _okunanUser.data;
 
     User _okunanUserNesnesi = User.fromMap(_okunanUserBilgileriMap);
-    print("Okunan user nesnesi : " + _okunanUserNesnesi.toString());
+    //print("Okunan user nesnesi : " + _okunanUserNesnesi.toString());
     return _okunanUserNesnesi;
   }
 
@@ -88,18 +88,6 @@ class FirestoreDbService implements DBBase {
     }
     return tumKonusmalar;
   }
-
-/*TEK BİR MESAJI DİNLEMEK İÇİN MAP YAPISI BÖYLE KULLANILIR
-  @override
-  Stream<Mesaj> getMessage(String currentUserID, String sohbetEdilenUserID) {
-    var snapShot = _firebaseDB
-        .collection("konusmalar")
-        .document(currentUserID + "--" + sohbetEdilenUserID)
-        .collection("mesajlar")
-        .document(currentUserID)
-        .snapshots();
-    return snapShot.map((snapShot) => Mesaj.fromMap(snapShot.data));
-  }*/
 
   @override
   Stream<List<Mesaj>> getMessages(
